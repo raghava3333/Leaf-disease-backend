@@ -3,23 +3,31 @@ register_heif_opener()
 
 from flask import Flask, request, jsonify
 from PIL import Image
+import torch
 import os
 import io
 
 app = Flask(__name__)
 
+model=None
+
+def load_model():
+    global model
+    if model is None:
+        model=torch.load("full_model_eff.pth", map_location='cpu')
+        model.eval()
+
 # ✅ MAIN ROUTE
 @app.route('/predict', methods=['POST'])
 def predict():
+    load_model()
+
     file = request.files['file']
     file_bytes=file.read()
+
     image = Image.open(io.BytesIO(file_bytes)).convert('RGB')
     
-    return{"message":"API working"}
-
-    print("prediction", result)
-
-    return jsonify({"prediction": result})
+    return{"message":"MOdel Loaded sucessfully"}
 
 
 # Optional check route
