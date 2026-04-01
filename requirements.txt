@@ -1,9 +1,9 @@
---extra -index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
 
 flask
 gunicorn
-torch==2.0.1+cpu
-torchvision==0.16.0+cpu
+torch==2.0.1
+torchvision==0.16.0
 numpy
 pillow
 pillow-heif
