@@ -1,6 +1,5 @@
 flask
 gunicorn
-torchvision==0.16.0
 numpy
 pillow
 pillow-heif
