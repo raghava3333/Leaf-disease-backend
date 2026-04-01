@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify
 from PIL import Image
 import os
 import io
-import torch
 import torchvision.transforms as transforms
 
 app = Flask(__name__)
@@ -35,11 +34,9 @@ def predict():
     file = request.files['file']
     file_bytes=file.read()
     image = Image.open(io.BytesIO(file_bytes)).convert('RGB')
+    
+    return{"message":"API working"}
     image = transform(image).unsqueeze(0)
-
-    with torch.no_grad():
-        outputs = model(image)
-        _, predicted = torch.max(outputs, 1)
 
     result = class_names[predicted.item()]
 
