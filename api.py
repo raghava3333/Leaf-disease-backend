@@ -1,25 +1,26 @@
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
-import os
 import torchvision.transforms as transforms
 import io
-
-app = FastAPI()
-
-# Load model
+import torch
 import os
 import gdown
 
+app = FastAPI()
+
+# 🔥 Model download
 MODEL_PATH = "full_model_eff.pth"
 
 if not os.path.exists(MODEL_PATH):
     print("Downloading model...")
-    url = "https://drive.google.com/file/d/1_5eZPAan9XfL9NCroBqZJF2vty8Pve7s/view?usp=drivesdk"
+    url = "https://drive.google.com/uc?id=1_5eZPAan9XfL9NCroBqZJF2vty8Pve7s"
     gdown.download(url, MODEL_PATH, quiet=False)
 
+# 🔥 Load model
 model = torch.load(MODEL_PATH, map_location='cpu')
 model.eval()
 
+# Classes
 class_names = [
     'Anthracnose fruit',
     'Anthracnose leaf',
@@ -29,6 +30,7 @@ class_names = [
     'Healthy leaf'
 ]
 
+# Transform
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor()
