@@ -13,7 +13,6 @@ import gdown
 MODEL_PATH = "full_model_eff.pth"
 
 if not os.path.exists(MODEL_PATH):
-    print("Downloding model")
     print("Downloading model...")
     url = "https://drive.google.com/file/d/1_5eZPAan9XfL9NCroBqZJF2vty8Pve7s/view?usp=drivesdk"
     gdown.download(url, MODEL_PATH, quiet=False)
